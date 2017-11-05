@@ -19,7 +19,8 @@
                 <td>{{address.state}}</td>
                 <td>{{address.country}}</td>
                 <td>
-                    <a href="javascript:void(0);" ng-click="removeAddress($index)">Remove</a>
+                    <a class="btn btn-sm"><span class="glyphicon glyphicon-trash" ng-click="removeAddress($index)"></span></a>
+                    <a class="btn btn-sm"><span class="glyphicon glyphicon-edit" ng-click="editAddress($index)"></span></a>
                 </td>
             </tr>
             </tbody>
@@ -28,6 +29,7 @@
     <div class="col-md-4">
         <h4>Add Address</h4>
         <form ng-submit="submitAddress(address)">
+            <input type="hidden" ng-model="address.id">
             <div class="form-group">
                 <label for="street">Street*</label>
                 <input type="text" id="street" class="form-control" ng-model="address.street" placeholder="Street">

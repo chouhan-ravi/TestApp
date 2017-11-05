@@ -22,6 +22,7 @@ routerApp.controller('addressController', function($scope) {
     
         $scope.addresses = [
             {
+                id: new Date().getTime(),
                 street: 'Macallan 12',
                 number: 380015,
                 city: "Ahmedabad",
@@ -30,10 +31,30 @@ routerApp.controller('addressController', function($scope) {
             }
         ];
 
+        $scope.address = { id: -1, street: "", number: "", city: "", state: "", country: ""};
 
         $scope.submitAddress = function(address) {
-          $scope.addresses.push(address);
+            var key = -1;
+            if( address.id < 0 ) {
+                address["id"] = new Date().getTime();
+                $scope.addresses.push(angular.copy(address));
+            } else if (address.id != -1) {
+                angular.forEach($scope.addresses, function (ad, k) {
+                    if(ad.id == address.id)
+                        key = k;
+                })
+
+                if(key != -1)
+                    $scope.addresses[key] = angular.copy(address);
+
+            }
+
+            $scope.address = { id: -1, street: "", number: "", city: "", state: "", country: ""};
         };
+
+        $scope.editAddress = function (idx) {
+            $scope.address = angular.copy($scope.addresses[idx]);
+        }
 
         $scope.removeAddress = function(idx){
             var adds = [];
