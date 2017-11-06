@@ -28,30 +28,36 @@
     </div>
     <div class="col-md-4">
         <h4>Add Address</h4>
-        <form ng-submit="submitAddress(address)">
+        <form name="addressForm" ng-submit="submitAddress(address)">
             <input type="hidden" ng-model="address.id">
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error': addressForm.street.$invalid && !addressForm.street.$pristine}">
                 <label for="street">Street*</label>
-                <input type="text" id="street" class="form-control" ng-model="address.street" placeholder="Street">
+                <input type="text" id="street" name="street" class="form-control" ng-model="address.street" placeholder="Street" required>
+                <p ng-show="addressForm.street.$invalid && !addressForm.street.$pristine" class="help-block">Street is required.</p>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error': addressForm.number.$invalid && !addressForm.number.$pristine}">
                 <label for="number">Number*</label>
-                <input type="text" id="number" class="form-control" ng-model="address.number" placeholder="Number">
+                <input type="text" id="number" name="number" class="form-control" ng-model="address.number" placeholder="Number"
+                       ng-pattern="/^[0-9]+/" required>
+                <p ng-show="addressForm.number.$invalid && !addressForm.number.$pristine" class="help-block">Number is required.</p>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error': addressForm.city.$invalid && !addressForm.city.$pristine}">
                 <label for="city">City*</label>
-                <input type="text" id="city" class="form-control" ng-model="address.city" placeholder="City">
+                <input type="text" id="city" name="city" class="form-control" ng-model="address.city" placeholder="City" required>
+                <p ng-show="addressForm.city.$invalid && !addressForm.city.$pristine" class="help-block">City is required.</p>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error': addressForm.state.$invalid && !addressForm.state.$pristine}">
                 <label for="state">State*</label>
-                <input type="text" id="state" class="form-control" ng-model="address.state" placeholder="State">
+                <input type="text" id="state" name="state" class="form-control" ng-model="address.state" placeholder="State" required>
+                <p ng-show="addressForm.state.$invalid && !addressForm.state.$pristine" class="help-block">State is required.</p>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error': addressForm.country.$invalid && !addressForm.country.$pristine}">
                 <label for="country">Country*</label>
-                <input type="text" id="country" class="form-control" ng-model="address.country" placeholder="Country">
+                <input type="text" id="country" name="country" class="form-control" ng-model="address.country" placeholder="Country" required>
+                <p ng-show="addressForm.country.$invalid && !addressForm.country.$pristine" class="help-block">Country is required.</p>
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit">
+                <input type="submit" class="btn btn-primary" ng-disabled="addressForm.$invalid" value="Submit">
                 <input type="reset" class="btn btn-danger" value="Reset">
             </div>
         </form>
